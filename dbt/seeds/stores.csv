@@ -1,0 +1,16 @@
+store_id,store_name,store_type,city,state,region,opened_date
+STORE0001,Retail360 Online,online,N/A,N/A,National,2018-01-01
+STORE0002,Retail360 Chicago #2,pop-up,Chicago,IL,Northeast,2018-05-21
+STORE0003,Retail360 Houston #3,online,Houston,TX,Southwest,2020-04-06
+STORE0004,Retail360 Houston #4,pop-up,Houston,TX,Northeast,2021-03-31
+STORE0005,Retail360 Austin #5,physical,Austin,TX,Southwest,2018-06-17
+STORE0006,Retail360 Austin #6,physical,Austin,TX,Midwest,2020-12-06
+STORE0007,Retail360 Houston #7,pop-up,Houston,TX,Midwest,2021-10-03
+STORE0008,Retail360 Houston #8,physical,Houston,TX,Southeast,2019-06-28
+STORE0009,Retail360 Phoenix #9,physical,Phoenix,AZ,Northeast,2020-07-25
+STORE0010,Retail360 New York #10,pop-up,New York,NY,Southwest,2020-07-27
+STORE0011,Retail360 Los Angeles #11,pop-up,Los Angeles,CA,Southeast,2018-05-31
+STORE0012,Retail360 Dallas #12,online,Dallas,TX,Midwest,2019-06-28
+STORE0013,Retail360 Los Angeles #13,online,Los Angeles,CA,Midwest,2022-12-06
+STORE0014,Retail360 Phoenix #14,physical,Phoenix,AZ,Southwest,2018-11-20
+STORE0015,Retail360 Phoenix #15,pop-up,Phoenix,AZ,Southwest,2021-06-06

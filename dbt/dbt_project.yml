@@ -1,0 +1,63 @@
+name: 'retail360_analytics'
+version: '1.4.0'
+config-version: 2
+
+profile: 'retail360'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+require-dbt-version: [">=1.6.0", "<2.0.0"]
+
+vars:
+  start_date: '2023-01-01'
+
+models:
+  retail360_analytics:
+    staging:
+      +materialized: view
+      +schema: staging
+      +tags: ['staging']
+    intermediate:
+      +materialized: ephemeral
+      +schema: intermediate
+      +tags: ['intermediate']
+    marts:
+      +materialized: table
+      +schema: marts
+      sales:
+        +tags: ['sales']
+      customer:
+        +tags: ['customer']
+      product:
+        +tags: ['product']
+      inventory:
+        +tags: ['inventory']
+
+seeds:
+  retail360_analytics:
+    +schema: seeds
+    +quote_columns: false
+
+snapshots:
+  retail360_analytics:
+    +target_schema: snapshots
+
+groups:
+  - name: sales_analytics
+    owner:
+      name: "Sales Analytics Team"
+      email: "sales-analytics@retail360.example.com"
+  - name: customer_analytics
+    owner:
+      name: "Customer Analytics Team"
+      email: "customer-analytics@retail360.example.com"

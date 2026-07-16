@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: int_customer_orders
+    description: "One row per customer with lifetime order aggregates. Feeds dim_customer."
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+  - name: int_sales_metrics
+    description: "Order-line grain sales facts joined with payment info. Feeds fact_sales."
+    columns:
+      - name: sales_sk
+        description: "Surrogate key: hash of order_id + customer_id."
+        tests:
+          - unique
+          - not_null
+
+  - name: int_inventory_metrics
+    description: >
+      Inventory estimate model. Currently a placeholder pending a dedicated
+      inventory source feed (see backlog R360-027). Feeds fact_inventory.
+    columns:
+      - name: product_id
+        tests:
+          - not_null

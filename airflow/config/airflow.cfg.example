@@ -1,0 +1,13 @@
+# Partial example Airflow config - only the settings relevant to this
+# project are shown. Merge into your existing airflow.cfg.
+
+[core]
+dags_folder = /opt/airflow/dags
+executor = CeleryExecutor
+load_examples = False
+
+[webserver]
+expose_config = False
+
+[email]
+email_backend = airflow.providers.smtp.notifications.smtp.send_smtp_notification

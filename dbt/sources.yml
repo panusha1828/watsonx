@@ -1,0 +1,56 @@
+version: 2
+
+sources:
+  - name: raw
+    database: RETAIL360
+    schema: RAW
+    description: "Raw landing tables populated by Snowpipe. See docs/architecture.md."
+    loaded_at_field: _loaded_at
+    freshness:
+      warn_after: {count: 12, period: hour}
+      error_after: {count: 24, period: hour}
+
+    tables:
+      - name: customers
+        description: "Raw customer records from the CRM system."
+        columns:
+          - name: customer_id
+            description: "Primary key from the source CRM system."
+            tests:
+              - not_null
+        freshness:
+          warn_after: {count: 24, period: hour}
+          error_after: {count: 48, period: hour}
+
+      - name: orders
+        description: "Raw order header records from e-commerce and POS systems."
+        columns:
+          - name: order_id
+            description: "Primary key from source order systems."
+            tests:
+              - not_null
+
+      - name: products
+        description: "Raw product catalog records."
+        columns:
+          - name: product_id
+            tests:
+              - not_null
+
+      - name: stores
+        description: "Raw store/location dimension source."
+        columns:
+          - name: store_id
+            tests:
+              - not_null
+
+      - name: payments
+        description: "Raw payment transaction records, JSON-sourced from the payment gateway."
+        loaded_at_field: _loaded_at
+        freshness:
+          warn_after: {count: 6, period: hour}
+          error_after: {count: 12, period: hour}
+        columns:
+          - name: payment_id
+            tests:
+              - not_null

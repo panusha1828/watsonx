@@ -1,0 +1,81 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Cleaned, 1:1 staging model over raw.customers."
+    columns:
+      - name: customer_id
+        description: "Primary key."
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: "Lowercased, trimmed customer email address."
+      - name: loyalty_tier
+        description: "Customer loyalty tier; defaults to 'none' when null."
+        tests:
+          - accepted_values:
+              values: ['none', 'bronze', 'silver', 'gold', 'platinum']
+
+  - name: stg_orders
+    description: "Cleaned, 1:1 staging model over raw.orders."
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: order_status
+        tests:
+          - accepted_values:
+              values: ['placed', 'shipped', 'delivered', 'cancelled', 'returned']
+
+  - name: stg_products
+    description: "Cleaned, 1:1 staging model over raw.products."
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+      - name: unit_price
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100000
+
+  - name: stg_stores
+    description: "Cleaned, 1:1 staging model over raw.stores."
+    columns:
+      - name: store_id
+        tests:
+          - unique
+          - not_null
+      - name: store_type
+        tests:
+          - accepted_values:
+              values: ['online', 'physical', 'pop-up']
+        # NOTE: this test currently fails intermittently due to casing
+        # inconsistencies flagged in the model's TODO. See R360-018.
+
+  - name: stg_payments
+    description: "Cleaned, 1:1 staging model over raw.payments."
+    columns:
+      - name: payment_id
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+      - name: payment_status
+        tests:
+          - accepted_values:
+              values: ['pending', 'completed', 'failed', 'refunded']

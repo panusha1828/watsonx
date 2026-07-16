@@ -1,0 +1,37 @@
+name: dbt Deploy (Production)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'dbt/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_PRIVATE_KEY: ${{ secrets.SNOWFLAKE_PRIVATE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dbt
+        run: pip install dbt-snowflake==1.7.1
+      - name: dbt deps
+        run: cd dbt && dbt deps
+      - name: dbt run (prod)
+        run: cd dbt && dbt run --target prod
+      - name: dbt test (prod)
+        run: cd dbt && dbt test --target prod
+      - name: Notify Slack
+        if: always()
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          payload: |
+            {"text": "Retail360 dbt prod deploy finished with status: ${{ job.status }}"}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

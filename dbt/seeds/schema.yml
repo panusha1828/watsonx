@@ -1,0 +1,38 @@
+version: 2
+
+seeds:
+  - name: customers
+    description: "Sample customer seed data for local development and CI."
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+  - name: orders
+    description: "Sample order seed data for local development and CI."
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+  - name: products
+    description: "Sample product seed data for local development and CI."
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+  - name: stores
+    description: "Sample store seed data for local development and CI."
+    columns:
+      - name: store_id
+        tests:
+          - unique
+          - not_null
+  - name: payments
+    description: "Sample payment seed data for local development and CI."
+    columns:
+      - name: payment_id
+        tests:
+          - unique
+          - not_null

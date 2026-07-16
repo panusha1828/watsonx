@@ -1,0 +1,7 @@
+# Default owners for everything
+*                       @retail360/data-engineering
+
+dbt/models/marts/       @retail360/data-engineering @retail360/analytics-leads
+snowflake/roles/        @retail360/data-platform-admins
+snowflake/ddl/          @retail360/data-platform-admins
+docs/data-governance.md @retail360/data-platform-admins

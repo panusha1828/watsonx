@@ -1,0 +1,25 @@
+{
+  "datasets": [
+    {
+      "name": "Executive Sales",
+      "source_schema": "MARTS",
+      "tables": ["FACT_SALES", "DIM_CUSTOMER", "DIM_STORE", "DIM_DATE"],
+      "refresh_schedule": "0 2 30 * * *",
+      "owner": "sales-analytics@retail360.example.com"
+    },
+    {
+      "name": "Customer 360",
+      "source_schema": "MARTS",
+      "tables": ["DIM_CUSTOMER", "FACT_ORDERS"],
+      "refresh_schedule": "0 2 30 * * *",
+      "owner": "customer-analytics@retail360.example.com"
+    },
+    {
+      "name": "Inventory Overview",
+      "source_schema": "MARTS",
+      "tables": ["FACT_INVENTORY", "DIM_PRODUCT"],
+      "refresh_schedule": "0 2 30 * * *",
+      "owner": "supply-chain-analytics@retail360.example.com"
+    }
+  ]
+}
