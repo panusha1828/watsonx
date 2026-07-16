@@ -43,7 +43,7 @@ jobs:
         run: cd dbt && dbt test --target ci
       - name: dbt docs generate
         run: cd dbt && dbt docs generate --target ci
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: dbt-docs
           path: dbt/target
